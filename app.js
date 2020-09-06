@@ -31,6 +31,7 @@ app.use(express.static('public'))
 
 // require express-handlebars here
 const exphbs = require('express-handlebars')
+const restaurant = require('./models/restaurant.js')
 
 // setting template engine
 app.engine('handlebars', exphbs({ defaultLayout: 'main' }))
@@ -67,18 +68,85 @@ app.get('/search', (req, res) => {
     .catch(error => console.error(error)) // 錯誤處理
 })
 
+// ------------------------------------------------------------------------------------------- new
 
-app.get('/restaurants/:restaurant_id', (req, res) => {
-  const id = req.params.restaurant_id
+app.get('/restaurants/new', (req, res) => {
+
+  return res.render('new')
+})
+
+app.post('/restaurants', (req, res) => {
+  const restaurant = req.body       // 從 req.body 拿出表單裡的 name 資料
+
+  return Restaurant.create(restaurant)     // 存入資料庫
+    .then(() => res.redirect('/')) // 新增完成後導回首頁
+    .catch(error => console.log(error))
+})
+
+// -------------------------------------------------------------------------------------------
+
+// ------------------------------------------------------------------------------------------- edit
+
+app.get('/restaurants/:id/edit', (req, res) => {
+  const id = req.params.id
+  return Restaurant.findById(id)
+    .lean()
+    .then(restaurant => res.render('edit', { restaurant }))
+    .catch(error => console.log(error))
+})
+
+app.post('/restaurants/:id/edit', (req, res) => {
+  const id = req.params.id
+  const editedRestaurant = req.body
+  console.log(id, editedRestaurant)
+
+  res.redirect(`/restaurants/${id}/edit`)
+
+  return Restaurant.findById(id)
+    .then(restaurant => {
+      restaurant.name = editedRestaurant.name
+      restaurant.name_en = editedRestaurant.name_en
+      restaurant.category = editedRestaurant.category
+      restaurant.location = editedRestaurant.location
+      restaurant.phone = editedRestaurant.phone
+      restaurant.google_map = editedRestaurant.google_map
+      restaurant.rating = editedRestaurant.rating
+      restaurant.description = editedRestaurant.description
+      return restaurant.save()
+    })
+    .then(() => res.redirect(`/restaurants/${id}`))
+    .catch(error => console.log(error))
+})
+
+// -------------------------------------------------------------------------------------------
+
+// ------------------------------------------------------------------------------------------- get one
+
+app.get('/restaurants/:id', (req, res) => {
+  const id = req.params.id
   console.log("show id:", id)
   return Restaurant.findById(id)
-      .lean()
-      .then(restaurant => {
-        console.log(restaurant)
-        res.render('show', { restaurant })
-      })
-      .catch(error => console.log(error))
+    .lean()
+    .then(restaurant => {
+      console.log(restaurant)
+      res.render('show', { restaurant })
+    })
+    .catch(error => console.log(error))
 })
+
+// -------------------------------------------------------------------------------------------
+
+// ------------------------------------------------------------------------------------------- delete
+
+app.post('/restaurants/:id/delete', (req, res) => {
+  const id = req.params.id
+  return Restaurant.findById(id)
+    .then(restaurant => restaurant.remove())
+    .then(() => res.redirect('/'))
+    .catch(error => console.log(error))
+})
+
+// -------------------------------------------------------------------------------------------
 
 // start and listen on the Express server
 app.listen(port, () => {

@@ -1,0 +1,87 @@
+<header>
+    <!-- navigation -->
+    <nav class="navbar navbar-light bg-light">
+        <div class="container">
+            <a class="navbar-brand" href="/">
+                <img src="https://assets-lighthouse.s3.amazonaws.com/uploads/image/file/6227/restaurant-list-logo.png"
+                    width="30" height="30" class="d-inline-block align-top" alt="好。吃">
+                我的餐廳清單
+            </a>
+        </div>
+    </nav>
+
+    <div class="banner"></div>
+</header>
+
+{{!-- "id": 1,
+      "name": "Sababa 沙巴巴中東美食",
+      "name_en": "Sababa Pita Bar",
+      "category": "中東料理",
+      "image": "https://assets-lighthouse.s3.amazonaws.com/uploads/image/file/5635/01.jpg",
+      "location": "台北市羅斯福路三段 283 巷 17 號",
+      "phone": "02 2363 8009",
+      "google_map": "https://goo.gl/maps/BJdmLuVdDbw",
+      "rating": 4.1,
+      "description": "沙巴巴批塔是台灣第一家純手工批塔專賣店,只選用最新鮮的頂級原料,以及道地的中東家傳配方。"
+    }, --}}
+
+<div class="d-flex justify-content-center my-5">
+    <form class="card" action="/restaurants/{{ restaurant._id }}/edit" method="POST" style="width: 50rem;">
+        <div class="card-header">
+            Edit a Restaurant
+        </div>
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item d-none">
+                <span>Id</span>
+                <input type="text" size="50" placeholder="" name="id" value="{{restaurant.id}}">
+            </li>
+            <li class="list-group-item d-flex justify-content-between">
+                <span>Name</span>
+                <input type="text" size="50" placeholder="{{restaurant.name}}" name="name" value="{{restaurant.name}}">
+            </li>
+            <li class="list-group-item d-flex justify-content-between">
+                <span>English Name</span>
+                <input type="text" size="50" placeholder="{{restaurant.name_en}}" name="name_en"
+                    value="{{restaurant.name_en}}">
+            </li>
+            <li class="list-group-item d-flex justify-content-between">
+                <span>Category</span>
+                <input type="text" size="50" placeholder="{{restaurant.category}}" name="category"
+                    value="{{restaurant.category}}">
+            </li>
+            <li class="list-group-item d-none">
+                <span>Image</span>
+                <input type="text" size="50" placeholder="{{restaurant.image}}" name="image"
+                    value="{{restaurant.image}}">
+            </li>
+            <li class="list-group-item d-flex justify-content-between">
+                <span>Location</span>
+                <input type="text" size="50" placeholder="{{restaurant.location}}" name="location"
+                    value="{{restaurant.location}}">
+            </li>
+            <li class="list-group-item d-flex justify-content-between">
+                <span>Phone</span>
+                <input type="text" size="50" placeholder="{{restaurant.phone}}" name="phone"
+                    value="{{restaurant.phone}}">
+            </li>
+            <li class="list-group-item d-flex justify-content-between">
+                <span>Google Map</span>
+                <input type="text" size="50" placeholder="{{restaurant.google_map}}" name="google_map"
+                    value="{{restaurant.google_map}}">
+            </li>
+            <li class="list-group-item d-flex justify-content-between">
+                <span>Rating</span>
+                <input type="text" size="50" placeholder="{{restaurant.rating}}" name="rating"
+                    value="{{restaurant.rating}}">
+            </li>
+            <li class="list-group-item d-flex justify-content-between">
+                <span>Description</span>
+                <input type="text" size="50" placeholder="{{restaurant.description}}" name="description"
+                    value="{{restaurant.description}}">
+            </li>
+            <li class="list-group-item">
+                <button class="ml-2 btn btn-primary" type="submit">Edit</button>
+            </li>
+        </ul>
+    </form>
+</div>

@@ -1,0 +1,84 @@
+<header>
+    <!-- navigation -->
+    <nav class="navbar navbar-light bg-light">
+        <div class="container">
+            <a class="navbar-brand" href="/">
+                <img src="https://assets-lighthouse.s3.amazonaws.com/uploads/image/file/6227/restaurant-list-logo.png"
+                    width="30" height="30" class="d-inline-block align-top" alt="好。吃">
+                我的餐廳清單
+            </a>
+        </div>
+    </nav>
+
+    <div class="banner"></div>
+</header>
+
+{{!-- "id": 1,
+      "name": "Sababa 沙巴巴中東美食",
+      "name_en": "Sababa Pita Bar",
+      "category": "中東料理",
+      "image": "https://assets-lighthouse.s3.amazonaws.com/uploads/image/file/5635/01.jpg",
+      "location": "台北市羅斯福路三段 283 巷 17 號",
+      "phone": "02 2363 8009",
+      "google_map": "https://goo.gl/maps/BJdmLuVdDbw",
+      "rating": 4.1,
+      "description": "沙巴巴批塔是台灣第一家純手工批塔專賣店,只選用最新鮮的頂級原料,以及道地的中東家傳配方。"
+    }, --}}
+
+<div class="d-flex justify-content-center my-5">
+    <form class="card" action="/restaurants" method="POST" style="width: 50rem;">
+        <div class="card-header">
+            Create a New Restaurant
+        </div>
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item d-none">
+                <span>Id</span>
+                <input type="text" size="50" placeholder="" name="id" value="0">
+            </li>
+            <li class="list-group-item d-flex justify-content-between">
+                <span>Name</span>
+                <input type="text" size="50" placeholder="Sababa 沙巴巴中東美食" name="name" value="Sababa 沙巴巴中東美食">
+            </li>
+            <li class="list-group-item d-flex justify-content-between">
+                <span>English Name</span>
+                <input type="text" size="50" placeholder="Sababa Pita Bar" name="name_en" value="Sababa Pita Bar">
+            </li>
+            <li class="list-group-item d-flex justify-content-between">
+                <span>Category</span>
+                <input type="text" size="50" placeholder="中東料理" name="category" value="中東料理">
+            </li>
+            <li class="list-group-item d-none">
+                <span>Image</span>
+                <input type="text" size="50"
+                    placeholder="https://assets-lighthouse.s3.amazonaws.com/uploads/image/file/5635/01.jpg" name="image"
+                    value="https://assets-lighthouse.s3.amazonaws.com/uploads/image/file/5635/01.jpg">
+            </li>
+            <li class="list-group-item d-flex justify-content-between">
+                <span>Location</span>
+                <input type="text" size="50" placeholder="台北市羅斯福路三段 283 巷 17 號" name="location"
+                    value="台北市羅斯福路三段 283 巷 17 號">
+            </li>
+            <li class="list-group-item d-flex justify-content-between">
+                <span>Phone</span>
+                <input type="text" size="50" placeholder="02 2363 8009" name="phone" value="02 2363 8009">
+            </li>
+            <li class="list-group-item d-flex justify-content-between">
+                <span>Google Map</span>
+                <input type="text" size="50" placeholder="https://goo.gl/maps/BJdmLuVdDbw" name="google_map"
+                    value="https://goo.gl/maps/BJdmLuVdDbw">
+            </li>
+            <li class="list-group-item d-flex justify-content-between">
+                <span>Rating</span>
+                <input type="text" size="50" placeholder="4.1" name="rating" value="4.1">
+            </li>
+            <li class="list-group-item d-flex justify-content-between">
+                <span>Description</span>
+                <input type="text" size="50" placeholder="沙巴巴批塔是台灣第一家純手工批塔專賣店,只選用最新鮮的頂級原料,以及道地的中東家傳配方。"
+                    name="description" value="沙巴巴批塔是台灣第一家純手工批塔專賣店,只選用最新鮮的頂級原料,以及道地的中東家傳配方。">
+            </li>
+            <li class="list-group-item">
+                <button class="ml-2 btn btn-primary" type="submit">Create</button>
+            </li>
+        </ul>
+    </form>
+</div>

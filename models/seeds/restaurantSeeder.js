@@ -24,7 +24,7 @@ db.once('open', () => {
             name_en: doc.name_en,
             category: doc.category,
             image: doc.image,
-            location: doc.image,
+            location: doc.location,
             phone: doc.phone,
             google_map: doc.google_map,
             rating: doc.rating,

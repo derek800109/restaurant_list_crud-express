@@ -31,6 +31,12 @@
   </div>
 </div>
 
+{{!-- new restaurant --}}
+<div class="d-flex justify-content-center my-3">
+  <a href="/restaurants/new" type="button" class="btn btn-primary btn-lg btn-block" style="max-width: 70%;">New Restaurant</a>
+</div>
+
+
 <!-- restaurant list -->
 <div class="container mt-5">
   <div class="row">
@@ -53,10 +59,10 @@
               </span>
             </div>
             <div class="d-flex justify-content-end mr-2 mb-2">
-              <a class="ml-2 btn btn-primary" href="/restaurants/{{this._id}}">detail</a>
-              <a class="ml-2 btn btn-warning" href="./todos/{{ this._id }}/edit">edit</a>
+              <a class="ml-2 btn btn-warning" href="/restaurants/{{ this._id }}/edit">Edit</a>
+              <a class="ml-2 btn btn-primary" href="/restaurants/{{this._id}}">Detail</a>
               <form action="/restaurants/{{ this._id }}/delete" method="POST" style="display: inline;">
-                <button class="ml-2 btn btn-danger" type="submit">delete</button>
+                <button class="ml-2 btn btn-danger" type="submit">Delete</button>
               </form>
             </div>
           </div>
