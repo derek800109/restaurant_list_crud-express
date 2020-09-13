@@ -19,7 +19,7 @@ router.get('/search', (req, res) => {
                 return restaurant.name.toLowerCase().includes(keyword) ||
                     restaurant.name_en.toLowerCase().includes(keyword)
             }) // 將資料傳給 index 樣板
-            res.render('index', { restaurants: keyRestaurants })
+            res.render('index', { restaurants: keyRestaurants, keyword })
         })
         .catch(error => console.error(error)) // 錯誤處理
 })
