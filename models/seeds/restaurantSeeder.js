@@ -1,23 +1,12 @@
+// load in json ducument
 const restaurant = require('./restaurant.json');
 
-// restaurant.results.forEach(doc => {
-//     console.log(doc)
-// });
+// load in json module
+require('./config/mongoose')
 
-const mongoose = require('mongoose')
 const Todo = require('../restaurant.js') // 載入 todo model
 
-mongoose.connect('mongodb://localhost/restaurant-list-crud', { useNewUrlParser: true, useUnifiedTopology: true })
-
-const db = mongoose.connection
-
-db.on('error', () => {
-  console.log('mongodb error!')
-})
-
 db.once('open', () => {
-    console.log('mongodb connected!')
-
     restaurant.results.forEach(doc => {
         Todo.create({ id: doc.id,
             name: doc.name,
