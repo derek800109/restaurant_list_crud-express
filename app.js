@@ -1,7 +1,7 @@
 // app.js
 // require packages used in the project
 const express = require('express')
-const mongoose = require('mongoose') // 載入 mongoose
+const session = require('express-session')
 const exphbs = require('express-handlebars')
 const bodyParser = require('body-parser')// 引用 body-parser
 const methodOverride = require('method-override')
