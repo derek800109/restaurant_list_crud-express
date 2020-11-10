@@ -1,24 +1,61 @@
-// load in json ducument
-const restaurant = require('./restaurant.json');
+const bcrypt = require('bcryptjs')
+// 由於我們把 MongoDB 連線搬進了 .env 裡，需要在一開始載入 .env 的檔案
+if (process.env.NODE_ENV !== 'production') {
+  require('dotenv').config()
+}
 
 // load in json module
-require('./config/mongoose')
+const Restaurant = require('../restaurant.js')
+const User = require('../user')
+const db = require('../../config/mongoose')
 
-const Todo = require('../restaurant.js') // 載入 todo model
+const restaurantData = require('./restaurant.json')
+
+// -------------------------------------------------------------------------------------------
+
+const SEED_USER = [{
+        email: 'user1@example.com',
+        password: '12345678',
+        restaurants: [1,2,3]},
+    {
+        email: 'user2@example.com',
+        password: '12345678',
+        restaurants: [4,5,6]}
+]
+
+// -------------------------------------------------------------------------------------------
 
 db.once('open', () => {
-    restaurant.results.forEach(doc => {
-        Todo.create({ id: doc.id,
-            name: doc.name,
-            name_en: doc.name_en,
-            category: doc.category,
-            image: doc.image,
-            location: doc.location,
-            phone: doc.phone,
-            google_map: doc.google_map,
-            rating: doc.rating,
-            description: doc.description})
+    Promise.all(Array.from(
+        {length: SEED_USER.length},
+        (_,i) => bcrypt
+        .genSalt(10)
+        .then(salt => bcrypt.hash(SEED_USER[i].password, salt))
+        .then(hash => User.create({ email: SEED_USER[i].email, password: hash }))
+        .then(userId => {
+            const restaurants = restaurantData.results.filter(restaurant => SEED_USER[i].restaurants.indexOf(restaurant.id) >= 0)
+            console.log(' --------- ' + i + ' ' + SEED_USER[i])
+            
+            return Promise.all(Array.from(
+                {length: restaurants.length},
+                (_,j) => Restaurant.create({
+                            userId, 
+                            id: restaurants[j].id,
+                            name: restaurants[j].name,
+                            name_en: restaurants[j].name_en,
+                            category: restaurants[j].category,
+                            image: restaurants[j].image,
+                            location: restaurants[j].location,
+                            phone: restaurants[j].phone,
+                            google_map: restaurants[j].google_map,
+                            rating: restaurants[j].rating,
+                            description: restaurants[j].description})
+            ))
+        })
+    ))
+    .then(() => {
+        console.log('done')
+        // process.exit() 指「關閉這段 Node 執行程序」
+        process.exit()
     })
-    
-    console.log('done')
   })
