@@ -29,10 +29,10 @@ router.get('/new', (req, res) => {
 })
 
 router.post('/', (req, res) => {
-    const restaurant = req.body       // 從 req.body 拿出表單裡的 name 資料
+    const {name, name_en, category, image, location, phone, google_map, rating, description} = req.body
     const userId = req.user._id
-
-    return Restaurant.create({ userId, restaurant})     // 存入資料庫
+    
+    return Restaurant.create({ userId, name, name_en, category, image, location, phone, google_map, rating, description})     // 存入資料庫
         .then(() => res.redirect('/')) // 新增完成後導回首頁
         .catch(error => console.log(error))
 })
@@ -56,6 +56,7 @@ router.put('/:id', (req, res) => {
     const _id = req.params.id
     const editedRestaurant = req.body
     // console.log(id, editedRestaurant)
+    console.log('edit put data' + editedRestaurant)
 
     // res.redirect(`/${id}/edit`)
 
@@ -71,7 +72,7 @@ router.put('/:id', (req, res) => {
             restaurant.description = editedRestaurant.description
             return restaurant.save()
         })
-        .then(() => res.redirect(`/restaurants/${id}`))
+        .then(() => res.redirect(`/restaurants/${_id}`))
         .catch(error => console.log(error))
 })
 
